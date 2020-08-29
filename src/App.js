@@ -17,34 +17,64 @@ class App extends Component {
     })
   }
 
-  changeHandler = (e, id) => {
+  changeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex (p => {
+      return p.id === id // checking the id in state that matches the id in parameter
+    })
+
+    const person = {
+      ...this.state.persons[personIndex] //finding the matched id in the copy of the state
+    }
+
+    person.name = event.target.value //assigning the entered input value to the name of matched state
+
+    const persons = [...this.state.persons] 
+    persons[personIndex] = person //assigning the updated input back the copy of state
+
     this.setState({
-      persons: [{name: 'Christopher', age: 9 },
-              {name: 'Waltz', age: 6},
-              {name: e.target.value, age: 3}
-              ]
+      persons: persons // updating the state with entered value
+    })
+
+  }
+
+  deleteHandler = (personIndex) => {
+    const persons = [...this.state.persons]
+    persons.splice(personIndex, 1)
+
+    this.setState({
+      persons: persons
     })
   }
 
   render(){
+    const style = {
+      backgroundColor : 'white',
+      border: '1px solid green',
+      padding: '0.8em',
+      borderRadius: '0.3em',
+      outline:'none'
+    }
+
    let persons = null
 
    if(this.state.showPersons){
     persons = ( 
       <div>
-        {this.state.persons.map(person => <Person 
+        {this.state.persons.map((person, index) => <Person 
+                                          click= {this.deleteHandler.bind(this, index)}
                                           name={person.name} 
                                           age={person.age} 
                                           key={person.id}
-                                          change={this.changeHandler.bind(this, person.id)}/>)}
+                                          change={(event) => this.changeHandler(event, person.id)}/>)}
       </div>
         )
+        style.border = '1px solid red' //changing the style conditionally
    }
 
     return (
       <div className="App">
         <h1>This is a React App</h1> 
-        <button onClick={this.togglePersonsHandler}>Click me</button>
+        <button style={style} onClick={this.togglePersonsHandler}>Click me</button>
         {persons}
         
       </div>
