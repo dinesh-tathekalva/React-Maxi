@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from './components/Person/Person'
+import Person from './components/Persons.js/Person/Person'
 
 class App extends Component {
   state = {
@@ -71,9 +71,18 @@ class App extends Component {
         style.border = '1px solid red' //changing the style conditionally
    }
 
+   const classes = []
+   if(this.state.persons.length <= 2){
+    classes.push('colorClass')
+   }
+   if(this.state.persons.length <=1){
+     classes.push('boldClass')
+   }
+
     return (
       <div className="App">
         <h1>This is a React App</h1> 
+        <p className={classes.join(' ')}>This font is to test the conditional styling</p>
         <button style={style} onClick={this.togglePersonsHandler}>Click me</button>
         {persons}
         
