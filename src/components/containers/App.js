@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from './components/Persons.js/Person/Person'
+// import Person from '../Persons/Person/Person'
+import Persons from '../Persons/Persons'
+import Cockpit from '../Cockpit/Cockpit'
 
 class App extends Component {
   state = {
@@ -47,45 +49,24 @@ class App extends Component {
   }
 
   render(){
-    const style = {
-      backgroundColor : 'white',
-      border: '1px solid green',
-      padding: '0.8em',
-      borderRadius: '0.3em',
-      outline:'none'
-    }
-
    let persons = null
 
    if(this.state.showPersons){
     persons = ( 
       <div>
-        {this.state.persons.map((person, index) => <Person 
-                                          click= {this.deleteHandler.bind(this, index)}
-                                          name={person.name} 
-                                          age={person.age} 
-                                          key={person.id}
-                                          change={(event) => this.changeHandler(event, person.id)}/>)}
+        <Persons persons={this.state.persons} 
+        delete = {this.deleteHandler} 
+        changed={this.changeHandler} />
       </div>
         )
-        style.border = '1px solid red' //changing the style conditionally
    }
-
-   const classes = []
-   if(this.state.persons.length <= 2){
-    classes.push('colorClass')
-   }
-   if(this.state.persons.length <=1){
-     classes.push('boldClass')
-   }
-
+  
     return (
       <div className="App">
-        <h1>This is a React App</h1> 
-        <p className={classes.join(' ')}>This font is to test the conditional styling</p>
-        <button style={style} onClick={this.togglePersonsHandler}>Click me</button>
+        <Cockpit showPersons={this.state.showPersons}
+                persons={this.state.persons}
+                click={this.togglePersonsHandler}/>
         {persons}
-        
       </div>
     )
   }
