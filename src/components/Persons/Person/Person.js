@@ -2,13 +2,13 @@ import React from 'react'
 import './Person.css'
 
 const person = props => {
-    const style = {
-        backgroundColor : 'white',
-        border: '1px solid #909090',
-        padding: '0.8em',
-        borderRadius: '0.3em'
+    // const style = {
+    //     backgroundColor : 'white',
+    //     border: '1px solid #909090',
+    //     padding: '0.8em',
+    //     borderRadius: '0.3em'
   
-      }
+    //   }
     const { age, name, click, change } = props
     return(
     <div className='Person'>
