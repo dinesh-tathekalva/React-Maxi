@@ -6,6 +6,7 @@ import App from './components/containers/App';
 ReactDOM.render(
   <React.StrictMode>
     <App />
+  
   </React.StrictMode>,
   document.getElementById('root')
 );
